@@ -1,0 +1,36 @@
+{
+  "name": "generator",
+  "version": "0.1.0",
+  "homepage": "https://joaohencke.github.io/generator",
+  "dependencies": {
+    "@joao.hencke/utils": "^1.0.3",
+    "bootstrap": "^4.1.3",
+    "classnames": "^2.2.6",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.6",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
+    "toastr": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
