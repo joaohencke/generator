@@ -27,6 +27,25 @@ class Generator extends Component {
     state.value = this.props.generate(this.state.options);
     this.setState(state);
   }
+  copy(str) {
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected =
+      document.getSelection().rangeCount > 0
+        ? document.getSelection().getRangeAt(0)
+        : false;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(selected);
+    }
+  }
   validate() {
     toastr.error('Não implementado');
   }
@@ -48,12 +67,18 @@ class Generator extends Component {
             </h5></Card.Header>
           <Card.Body>
             <div className="form-group">
-              <input type="text" className="form-control" placeholder="Gerar/Validar" value={this.state.value} name="value" onChange={this.handleChange} />
+              <div className="input-group">
+                <input type="text" className="form-control" placeholder="Gerar/Validar" value={this.state.value} name="value" onChange={this.handleChange} />
+                <div className="input-group-append">
+                  <button className="btn-sm btn-info" type="button" disabled={!this.state.value} onClick={() => this.copy(this.state.value)}>
+                    <i className="fa fa-copy"></i>
+                  </button>
+                </div>
+              </div>
             </div>
             {this.props.options && <div className="form-group">
               <select name="options" id="options" className="form-control" onChange={this.handleChange}>
                 {this.props.options.map(val => <option key={val} value={val}>{val}</option>)}
-
               </select>
             </div>}
           </Card.Body>
@@ -62,7 +87,7 @@ class Generator extends Component {
             {this.props.validate && <button type="button" className="btn btn-md btn-secondary" onClick={this.validate}>Validar</button>}
           </Card.Footer>
         </Card>
-      </form>
+      </form >
     )
   }
 }
