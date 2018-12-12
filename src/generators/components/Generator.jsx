@@ -5,9 +5,7 @@ import toastr from 'toastr';
 
 class Generator extends Component {
   static propTypes = {
-    generate: PropTypes.func,
-    validate: PropTypes.func,
-    title: PropTypes.string.isRequired,
+    generator: PropTypes.object,
   }
   constructor(props, context) {
     super(props, context);
@@ -24,7 +22,7 @@ class Generator extends Component {
   }
   generate() {
     const state = this.state;
-    state.value = this.props.generate(this.state.options);
+    state.value = this.props.generator.generate(this.state.options);
     this.setState(state);
   }
   copy(str) {
@@ -53,7 +51,7 @@ class Generator extends Component {
     const state = this.state;
 
     state[event.target.name] = event.target.value;
-
+    console.log(event.target.value)
     this.setState(state);
   }
   render() {
@@ -63,7 +61,7 @@ class Generator extends Component {
         <Card className="text-center">
           <Card.Header>
             <h5 className="card-title">
-              {this.props.title}
+              {this.props.generator.title}
             </h5></Card.Header>
           <Card.Body>
             <div className="form-group">
@@ -81,10 +79,15 @@ class Generator extends Component {
                 {this.props.options.map(val => <option key={val} value={val}>{val}</option>)}
               </select>
             </div>}
+            {this.props.generator.mask && <div className="form-check">
+              <label className="form-check-label">
+                <input type="checkbox" className="form-check-input" onChange={() => this.setState({ ...this.state, options: !this.state.options })} id="options" name="options" />
+                Máscara</label>
+            </div>}
           </Card.Body>
           <Card.Footer>
-            {this.props.generate && <button type="button" className="btn btn-md btn-primary" onClick={this.generate}>Gerar</button>}
-            {this.props.validate && <button type="button" className="btn btn-md btn-secondary" onClick={this.validate}>Validar</button>}
+            {this.props.generator.generate && <button type="button" className="btn btn-md btn-primary" onClick={this.generate}>Gerar</button>}
+            {this.props.generator.validate && <button type="button" className="btn btn-md btn-secondary" onClick={this.validate}>Validar</button>}
           </Card.Footer>
         </Card>
       </form >

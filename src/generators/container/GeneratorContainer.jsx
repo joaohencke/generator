@@ -20,7 +20,7 @@ class GeneratorContainer extends Component {
   render() {
     return (
       <div className="row">
-        {this.state.generators.map(e => <div className="col" key={e.title}><Generator title={e.title} generate={e.generate} options={e.options && e.options()}></Generator></div>)}
+        {this.state.generators.map(e => <div className="col" key={e.title}><Generator generator={e} options={e.options && e.options()}></Generator></div>)}
       </div>
     );
 
