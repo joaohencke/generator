@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { is } from "@joao.hencke/utils/lib/object";
 import GeneratorCardComponent from "../../components/generator/card";
 import copySelection from "../../services/copySelection";
 
 function GeneratorCard({ key, generator, options }) {
-  const [state, setState] = useState({ value: "", options: options || "" });
+  const [state, setState] = useState({
+    value: "",
+    options: options || "",
+    selectedOption: options && options[0]
+  });
 
   const handleChange = e => {
     const target = e.target;
@@ -24,8 +29,11 @@ function GeneratorCard({ key, generator, options }) {
 
   const copy = str => copySelection(str);
 
-  const generate = e =>
-    setState(x => ({ ...x, value: generator.generate(x.options) }));
+  const generate = e => {
+    e.preventDefault();
+    console.log(state);
+    setState(x => ({ ...x, value: generator.generate(x.selectedOption || x.options) }));
+  };
 
   const validate = () => {};
 

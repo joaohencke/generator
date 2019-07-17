@@ -10,8 +10,8 @@ const GeneratorCard = ({
   generate,
   validate
 }) => (
-  <div className="col">
-    <form className="form" key={key}>
+  <div className="col" key={key}>
+    <form className="form">
       <div className="text-center">
         <div className="card-header">
           <h5 className="card-title">{generator.title}</h5>
@@ -42,8 +42,9 @@ const GeneratorCard = ({
           {state.options && is("array", state.options) && (
             <div className="form-group">
               <select
-                name="options"
+                name="selectedOption"
                 id="options"
+                value={state.selectedOption}
                 className="form-control"
                 onChange={handleChange}
               >
